@@ -7,22 +7,18 @@ export default function Home() {
   return (
     <StretchColumn>
       <PageHeading title="Hi, Alice" />
-      <Cards />
-      <Introduction />
+      <ResponsiveGrid>
+        <ConsumptionCreditsCard />
+        <InvestmentCreditsCard />
+      </ResponsiveGrid>
+      <ResponsiveGrid>
+        <ActivationCard />
+      </ResponsiveGrid>
     </StretchColumn>
   );
 }
 
-function Cards() {
-  return (
-    <ResponsiveGrid>
-      <ConsumptionCreditsCard />
-      <InvestmentCreditsCard />
-    </ResponsiveGrid>
-  );
-}
-
-function Introduction() {
+function ActivationCard() {
   return (
     <div className="bg-base-200 card p-4 shadow-sm">
       <h2 className="text-2xl font-semibold mb-3">Harmony Card</h2>

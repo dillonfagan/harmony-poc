@@ -1,4 +1,5 @@
-import { StretchColumn } from "@/components/layouts";
+import { ResponsiveGrid, StretchColumn } from "@/components/layouts";
+import ConsumptionCreditsCard from "@/views/ConsumptionCreditsCard";
 
 export default function Market() {
   const merchants: MerchantData[] = [
@@ -40,7 +41,17 @@ export default function Market() {
     {
       name: "Harmony Motors",
       category: "Automotive",
-      summary: "An automotive shop specializing in electric vehicle repairs and maintenance, from bicycles to cars."
+      summary: "An automotive shop specializing in electric vehicle sales, repairs, and maintenance - from bicycles to cars."
+    },
+    {
+      name: "Harmony Cuts",
+      category: "Personal Care",
+      summary: "A hair salon providing haircuts, styling, and beauty treatments."
+    },
+    {
+      name: "Harmony Tool Library",
+      category: "Community Services",
+      summary: "A community tool library where you can borrow tools for DIY projects."
     }
   ];
 
@@ -48,15 +59,18 @@ export default function Market() {
     <StretchColumn>
       <h1 className="text-3xl lg:text-4xl">Merchants</h1>
       <span className="text-lg mb-4">Find participating merchants that accept Harmony credits.</span>
-      <div className="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-        {merchants.map((merchant) => (
-          <div className="bg-base-200 card p-2 md:p-4 shadow-sm">
-            <h2 className="text-xl font-semibold">{merchant.name}</h2>
-            <p className="text-sm text-gray-500">{merchant.category}</p>
-            {merchant.summary && <p className="mt-2">{merchant.summary}</p>}
+      <ResponsiveGrid>
+        <ConsumptionCreditsCard />
+      </ResponsiveGrid>
+      <ResponsiveGrid>
+        {merchants.map(({ name, category, summary }) => (
+          <div key={name} className="bg-base-200 card p-2 md:p-4 shadow-sm">
+            <h2 className="text-xl font-semibold">{name}</h2>
+            <p className="text-sm text-gray-500">{category}</p>
+            {summary && <p className="mt-2">{summary}</p>}
           </div>
         ))}
-      </div>
+      </ResponsiveGrid>
     </StretchColumn>
   );
 }

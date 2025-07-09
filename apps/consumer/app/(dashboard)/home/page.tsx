@@ -1,5 +1,6 @@
-import InformationCircle from "@/components/icons/InformationCircle";
-import { StretchColumn } from "@/components/layouts";
+import { ResponsiveGrid, StretchColumn } from "@/components/layouts";
+import ConsumptionCreditsCard from "@/views/ConsumptionCreditsCard";
+import InvestmentCreditsCard from "@/views/InvestmentCreditsCard";
 
 export default function Home() {
   return (
@@ -12,34 +13,10 @@ export default function Home() {
 
 function Cards() {
   return (
-    <div className="gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+    <ResponsiveGrid>
       <ConsumptionCreditsCard />
       <InvestmentCreditsCard />
-    </div>
-  );
-}
-
-function ConsumptionCreditsCard() {
-  return (
-    <div className="bg-primary text-primary-content card p-4 shadow">
-      <div className="flex justify-between align-top">
-        <h2 className="text-lg font-semibold mb-3">Consumption Credits</h2>
-        <div className="tooltip tooltip-left lg:tooltip-bottom" data-tip="Your consumption credits are redeemable for goods and services from local merchants."><InformationCircle /></div>
-      </div>
-      <p className="text-2xl md:text-3xl font-bold">$1,234.56</p>
-    </div>
-  );
-}
-
-function InvestmentCreditsCard() {
-  return (
-    <div className="bg-secondary text-secondary-content card p-4 shadow">
-      <div className="flex justify-between align-top">
-        <h2 className="text-lg font-semibold mb-3">Investment Credits</h2>
-        <div className="tooltip tooltip-left lg:tooltip-bottom" data-tip="Your investment credits are used to fund community projects."><InformationCircle /></div>
-      </div>
-      <p className="text-2xl md:text-3xl font-bold">$789.00</p>
-    </div>
+    </ResponsiveGrid>
   );
 }
 

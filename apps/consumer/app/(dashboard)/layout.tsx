@@ -1,17 +1,23 @@
+"use client";
+
 import BuildingStorefront from "@/components/icons/BuildingStorefront";
 import Home from "@/components/icons/Home";
 import Star from "@/components/icons/Star";
 import UserCircle from "@/components/icons/UserCircle";
 import Link from "next/link";
-import { PropsWithChildren } from "react";
+import { usePathname } from "next/navigation";
+import { PropsWithChildren, ReactNode } from "react";
 
 export default function DashboardLayout({ children }: PropsWithChildren) {
+  const pathname = usePathname();
+  
   const links: LinkData[] = [
-    { href: "/home", label: "Home" },
-    { href: "/market", label: "Market" },
-    { href: "/invest", label: "Invest" },
-    { href: "/account", label: "Account" },
+    { href: "/home", label: "Home", icon: <Home /> },
+    { href: "/market", label: "Market", icon: <BuildingStorefront /> },
+    { href: "/invest", label: "Invest", icon: <Star /> },
+    { href: "/account", label: "Account", icon: <UserCircle /> },
   ];
+
   return (
     <>
       <div className="flex flex-col min-h-screen bg-base-100">
@@ -32,25 +38,15 @@ export default function DashboardLayout({ children }: PropsWithChildren) {
           </div>
           <div className="navbar-end"></div>
         </nav>
-        <main className="grow z-0">{children}</main>
+        <main className="grow pb-16 lg:pb-0 z-0">{children}</main>
       </div>
       <div className="dock lg:hidden">
-        <button className="dock-active">
-          <Home />
-          <span className="dock-label">Home</span>
-        </button>
-        <button>
-          <BuildingStorefront />
-          <span className="dock-label">Market</span>
-        </button>
-        <button>
-          <Star />
-          <span className="dock-label">Invest</span>
-        </button>
-        <button>
-          <UserCircle />
-          <span className="dock-label">Account</span>
-        </button>
+        {links.map(({ href, label, icon }) => (
+          <Link key={href} href={href} role="button" className={pathname.endsWith(href) ? "dock-active" : undefined}>
+            {icon}
+            <span className="dock-label">{label}</span>
+          </Link>
+        ))}
       </div>
     </>
   );
@@ -59,4 +55,5 @@ export default function DashboardLayout({ children }: PropsWithChildren) {
 type LinkData = {
   href: string;
   label: string;
+  icon: ReactNode;
 };

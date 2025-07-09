@@ -1,11 +1,12 @@
 import InformationCircle from "@/components/icons/InformationCircle";
+import { StretchColumn } from "@/components/layouts";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-stretch gap-4 p-4 lg:p-8">
+    <StretchColumn>
       <Cards />
       <Introduction />
-    </div>
+    </StretchColumn>
   );
 }
 

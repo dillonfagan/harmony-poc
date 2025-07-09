@@ -20,10 +20,10 @@ function Cards() {
 
 function ConsumptionCreditsCard() {
   return (
-    <div className="bg-amber-200 card p-4 shadow">
+    <div className="bg-primary text-primary-content card p-4 shadow">
       <div className="flex justify-between align-top">
         <h2 className="text-lg font-semibold mb-3">Consumption Credits</h2>
-        <div className="tooltip tooltip-bottom" data-tip="Your consumption credits are redeemable for goods and services from local merchants."><InformationCircle /></div>
+        <div className="tooltip tooltip-left lg:tooltip-bottom" data-tip="Your consumption credits are redeemable for goods and services from local merchants."><InformationCircle /></div>
       </div>
       <p className="text-2xl md:text-3xl font-bold">$1,234.56</p>
     </div>
@@ -32,10 +32,10 @@ function ConsumptionCreditsCard() {
 
 function InvestmentCreditsCard() {
   return (
-    <div className="bg-indigo-200 card p-4 shadow">
+    <div className="bg-secondary text-secondary-content card p-4 shadow">
       <div className="flex justify-between align-top">
         <h2 className="text-lg font-semibold mb-3">Investment Credits</h2>
-        <div className="tooltip tooltip-bottom" data-tip="Your investment credits are used to fund community projects."><InformationCircle /></div>
+        <div className="tooltip tooltip-left lg:tooltip-bottom" data-tip="Your investment credits are used to fund community projects."><InformationCircle /></div>
       </div>
       <p className="text-2xl md:text-3xl font-bold">$789.00</p>
     </div>
@@ -44,9 +44,10 @@ function InvestmentCreditsCard() {
 
 function Introduction() {
   return (
-    <div className="bg-white card p-4 shadow-xs">
-      <h2 className="text-lg font-semibold mb-3">Welcome to Harmony!</h2>
-      <span>This is your community investment platform. Donate money and receive credits in return. 95% of your contributions become consumption credits which are redeemable at local merchants. 5% of your contributions become investment credits, which are used to fund community projects.</span>
+    <div className="bg-base-200 card p-4 shadow-sm">
+      <h2 className="text-2xl font-semibold mb-3">Harmony Card</h2>
+      <span className="mb-4">It looks like you still haven't activated your Harmony Card. Use it to redeem your consumption credits at participating merchants.</span>
+      <button className="btn btn-primary">Activate Card</button>
     </div>
   );
 }

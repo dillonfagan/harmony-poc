@@ -9,7 +9,7 @@ export default function DashboardLayout({ children }: PropsWithChildren) {
     { href: "/account", label: "Account" },
   ];
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-base-100">
       <nav className="navbar shadow-md sticky z-40">
         <div className="navbar-start">
           <button className="btn btn-ghost">Harmony</button>

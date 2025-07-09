@@ -1,3 +1,7 @@
+import BuildingStorefront from "@/components/icons/BuildingStorefront";
+import Home from "@/components/icons/Home";
+import Star from "@/components/icons/Star";
+import UserCircle from "@/components/icons/UserCircle";
 import Link from "next/link";
 import { PropsWithChildren } from "react";
 
@@ -9,26 +13,46 @@ export default function DashboardLayout({ children }: PropsWithChildren) {
     { href: "/account", label: "Account" },
   ];
   return (
-    <div className="flex flex-col min-h-screen bg-base-100">
-      <nav className="navbar shadow-md sticky z-40">
-        <div className="navbar-start">
-          <button className="btn btn-ghost">Harmony</button>
-        </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            {links.map(({ href, label }) => (
-              <li key={href}>
-                <Link href={href}>
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="navbar-end"></div>
-      </nav>
-      <main className="grow z-0">{children}</main>
-    </div>
+    <>
+      <div className="flex flex-col min-h-screen bg-base-100">
+        <nav className="navbar shadow-md sticky z-40">
+          <div className="navbar-start">
+            <button className="btn btn-ghost">Harmony</button>
+          </div>
+          <div className="navbar-center hidden lg:flex">
+            <ul className="menu menu-horizontal px-1">
+              {links.map(({ href, label }) => (
+                <li key={href}>
+                  <Link href={href}>
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="navbar-end"></div>
+        </nav>
+        <main className="grow z-0">{children}</main>
+      </div>
+      <div className="dock lg:hidden">
+        <button className="dock-active">
+          <Home />
+          <span className="dock-label">Home</span>
+        </button>
+        <button>
+          <BuildingStorefront />
+          <span className="dock-label">Market</span>
+        </button>
+        <button>
+          <Star />
+          <span className="dock-label">Invest</span>
+        </button>
+        <button>
+          <UserCircle />
+          <span className="dock-label">Account</span>
+        </button>
+      </div>
+    </>
   );
 }
 

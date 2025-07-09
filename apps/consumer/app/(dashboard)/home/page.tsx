@@ -1,10 +1,12 @@
 import { ResponsiveGrid, StretchColumn } from "@/components/layouts";
+import PageHeading from "@/components/PageHeading";
 import ConsumptionCreditsCard from "@/views/ConsumptionCreditsCard";
 import InvestmentCreditsCard from "@/views/InvestmentCreditsCard";
 
 export default function Home() {
   return (
     <StretchColumn>
+      <PageHeading title="Hi, Alice" />
       <Cards />
       <Introduction />
     </StretchColumn>

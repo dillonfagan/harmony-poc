@@ -1,4 +1,5 @@
 import { ResponsiveGrid, StretchColumn } from "@/components/layouts";
+import PageHeading from "@/components/PageHeading";
 import ConsumptionCreditsCard from "@/views/ConsumptionCreditsCard";
 
 export default function Market() {
@@ -57,8 +58,7 @@ export default function Market() {
 
   return (
     <StretchColumn>
-      <h1 className="text-3xl lg:text-4xl">Merchants</h1>
-      <span className="text-lg mb-4">Find participating merchants that accept Harmony credits.</span>
+      <PageHeading title="Merchants" subtitle="Find participating merchants that accept Harmony credits." />
       <ResponsiveGrid>
         <ConsumptionCreditsCard />
       </ResponsiveGrid>

@@ -7,7 +7,7 @@ export default function ConsumptionCreditsCard() {
         <h2 className="text-lg font-semibold mb-3">Consumption Credits</h2>
         <div className="tooltip tooltip-left lg:tooltip-bottom" data-tip="Your consumption credits are redeemable for goods and services from local merchants."><InformationCircle /></div>
       </div>
-      <p className="text-2xl md:text-3xl font-bold">$1,234.56</p>
+      <p className="text-2xl md:text-3xl font-bold">1,234.56</p>
     </div>
   );
 }

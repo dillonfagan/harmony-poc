@@ -7,7 +7,7 @@ export default function InvestmentCreditsCard() {
         <h2 className="text-lg font-semibold mb-3">Investment Credits</h2>
         <div className="tooltip tooltip-left lg:tooltip-bottom" data-tip="Your investment credits are used to fund community projects."><InformationCircle /></div>
       </div>
-      <p className="text-2xl md:text-3xl font-bold">$789.00</p>
+      <p className="text-2xl md:text-3xl font-bold">789.00</p>
     </div>
   );
 }

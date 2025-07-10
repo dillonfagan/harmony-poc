@@ -1,3 +1,4 @@
+import Plus from "@/components/icons/Plus";
 import { ResponsiveGrid, StretchColumn } from "@/components/layouts";
 import PageHeading from "@/components/PageHeading";
 import InvestmentCreditsCard from "@/views/InvestmentCreditsCard";
@@ -41,7 +42,7 @@ export default function Invest() {
 
   return (
     <StretchColumn>
-      <PageHeading title="Invest" subtitle="Use your investment credits to direct funding to community projects of your choosing." />
+      <PageHeading title="Invest" subtitle="Use your investment credits to direct funding to community projects of your choosing." trailing={<SubmitProposalButton />} />
       <ResponsiveGrid>
         <InvestmentCreditsCard />
       </ResponsiveGrid>
@@ -71,7 +72,6 @@ export default function Invest() {
             </div>
           );
         })}
-        <ProposeInvestmentCard />
       </ResponsiveGrid>
     </StretchColumn>
   );
@@ -86,12 +86,11 @@ type ProjectData = {
   deadline: string;
 };
 
-function ProposeInvestmentCard() {
+function SubmitProposalButton() {
   return (
-    <div className="bg-base-200 card flex flex-col p-2 md:p-4">
-      <h2 className="text-lg font-semibold">Propose an Investment</h2>
-      <p className="mb-4">Have an idea that could benefit our community? Share it with us!</p>
-      <button className="btn btn-accent">Submit Proposal</button>
-    </div>
+    <button className="btn btn-primary">
+      <span className="md:mr-1"><Plus /></span>
+      <span className="hidden md:inline">New Proposal</span>
+    </button>
   );
 }

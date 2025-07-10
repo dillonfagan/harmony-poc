@@ -60,12 +60,12 @@ export default function Invest() {
           const isDeadlinePassed = deadlineDate < new Date();
 
           return (
-            <div key={name} className={"bg-base-200 card p-2 md:p-4 shadow-sm"}>
+            <div key={name} className="bg-base-200 card flex flex-col p-2 md:p-4 shadow-sm">
               <h2 className="text-lg font-semibold">{name}</h2>
               <p className="text-sm text-gray-500">{category}</p>
               {!isDeadlinePassed && <p className="text-sm text-gray-500"><span className="font-semibold">{formattedShortfall} Credits</span> by {formattedDeadline}</p>}
               {isDeadlinePassed && <p className={classNames("font-semibold text-sm", { "text-error": !funded, "text-success": funded })}>{funded ? "Fully Funded" : "Ended"}</p>}
-              {summary && <p className="mt-2">{summary}</p>}
+              {summary && <p className="grow mt-2">{summary}</p>}
               <p className="text-sm text-gray-500 mt-3 mb-1">{percentFunded}%</p>
               <progress className={classNames("progress w-full", { "progress-primary": !funded && !isDeadlinePassed, "progress-error": !funded && isDeadlinePassed, "progress-success": funded })} value={currentFunding} max={fundingGoal} />
             </div>

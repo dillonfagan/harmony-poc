@@ -41,7 +41,7 @@ export default function Invest() {
 
   return (
     <StretchColumn>
-      <PageHeading title="Community Investments" subtitle="Use your investment credits to direct funding to community projects of your choosing." />
+      <PageHeading title="Invest" subtitle="Use your investment credits to direct funding to community projects of your choosing." />
       <ResponsiveGrid>
         <InvestmentCreditsCard />
       </ResponsiveGrid>
@@ -71,6 +71,7 @@ export default function Invest() {
             </div>
           );
         })}
+        <ProposeInvestmentCard />
       </ResponsiveGrid>
     </StretchColumn>
   );
@@ -84,3 +85,13 @@ type ProjectData = {
   currentFunding: number;
   deadline: string;
 };
+
+function ProposeInvestmentCard() {
+  return (
+    <div className="bg-base-200 card flex flex-col p-2 md:p-4">
+      <h2 className="text-lg font-semibold">Propose an Investment</h2>
+      <p className="mb-4">Have an idea that could benefit our community? Share it with us!</p>
+      <button className="btn btn-accent">Submit Proposal</button>
+    </div>
+  );
+}

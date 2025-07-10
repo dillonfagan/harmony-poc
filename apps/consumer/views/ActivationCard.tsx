@@ -30,7 +30,7 @@ export default function ActivationCard() {
           </div>
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn mr-3">Close</button>
+              <button className="btn mr-3">Cancel</button>
               <button className="btn btn-primary" onClick={() => setActivated(true)}>Activate</button>
             </form>
           </div>

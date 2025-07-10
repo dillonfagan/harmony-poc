@@ -1,5 +1,6 @@
 import { ResponsiveGrid, StretchColumn } from "@/components/layouts";
 import PageHeading from "@/components/PageHeading";
+import ActivationCard from "@/views/ActivationCard";
 import ConsumptionCreditsCard from "@/views/ConsumptionCreditsCard";
 import InvestmentCreditsCard from "@/views/InvestmentCreditsCard";
 import Link from "next/link";
@@ -17,16 +18,6 @@ export default function Home() {
         <InvestCard />
       </ResponsiveGrid>
     </StretchColumn>
-  );
-}
-
-function ActivationCard() {
-  return (
-    <div className="flex flex-col bg-base-200 card p-4 shadow-sm">
-      <h2 className="text-2xl font-semibold mb-3">Harmony Card</h2>
-      <span className="grow mb-4">It looks like you still haven't activated your Harmony Card. Use it to redeem your consumption credits at participating merchants.</span>
-      <button className="btn btn-primary">Activate Card</button>
-    </div>
   );
 }
 

@@ -1,9 +1,6 @@
 "use client";
 
-import BuildingStorefront from "@/components/icons/BuildingStorefront";
-import Home from "@/components/icons/Home";
-import Star from "@/components/icons/Star";
-import UserCircle from "@/components/icons/UserCircle";
+import { BuildingStorefrontIcon, HomeIcon, StarIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { PropsWithChildren, ReactNode } from "react";
@@ -12,10 +9,10 @@ export default function DashboardLayout({ children }: PropsWithChildren) {
   const pathname = usePathname();
   
   const links: LinkData[] = [
-    { href: "/home", label: "Home", icon: <Home /> },
-    { href: "/market", label: "Market", icon: <BuildingStorefront /> },
-    { href: "/invest", label: "Invest", icon: <Star /> },
-    { href: "/account", label: "Account", icon: <UserCircle /> },
+    { href: "/home", label: "Home", icon: <HomeIcon className="size-6" /> },
+    { href: "/market", label: "Market", icon: <BuildingStorefrontIcon className="size-6" /> },
+    { href: "/invest", label: "Invest", icon: <StarIcon className="size-6" /> },
+    { href: "/account", label: "Account", icon: <UserCircleIcon className="size-6" /> },
   ];
 
   return (

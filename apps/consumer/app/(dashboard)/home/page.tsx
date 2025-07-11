@@ -1,4 +1,4 @@
-import { ResponsiveGrid, StretchColumn } from "@/components/layouts";
+import { StretchColumn } from "@/components/layouts";
 import PageHeading from "@/components/PageHeading";
 import ActivationCard from "@/views/ActivationCard";
 import ConsumptionCreditsCard from "@/views/ConsumptionCreditsCard";
@@ -9,14 +9,16 @@ export default function Home() {
   return (
     <StretchColumn>
       <PageHeading title="Hi, Alice" />
-      <ResponsiveGrid>
-        <ConsumptionCreditsCard />
-        <InvestmentCreditsCard />
-      </ResponsiveGrid>
-      <ResponsiveGrid>
-        <ActivationCard />
-        <InvestCard />
-      </ResponsiveGrid>
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="flex flex-col gap-4">
+          <ConsumptionCreditsCard />
+          <InvestmentCreditsCard />
+        </div>
+        <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ActivationCard />
+          <InvestCard />
+        </div>
+      </div>
     </StretchColumn>
   );
 }

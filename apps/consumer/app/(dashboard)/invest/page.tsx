@@ -114,7 +114,7 @@ function LearnCard() {
 
 function SubmitProposalButton() {
   return (
-    <button className="btn btn-soft btn-primary xl:btn-lg">
+    <button className="btn btn-primary">
       <span className="md:mr-1"><PlusIcon className="size-6" /></span>
       <span className="hidden md:inline">New Proposal</span>
     </button>

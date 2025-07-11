@@ -1,5 +1,6 @@
-import { ResponsiveGrid, StretchColumn } from "@/components/layouts";
+import { StretchColumn } from "@/components/layouts";
 import PageHeading from "@/components/PageHeading";
+import ActivationCard from "@/views/ActivationCard";
 import ConsumptionCreditsCard from "@/views/ConsumptionCreditsCard";
 
 export default function Market() {
@@ -59,18 +60,25 @@ export default function Market() {
   return (
     <StretchColumn>
       <PageHeading title="Merchants" subtitle="Find participating merchants that accept Harmony credits." />
-      <ResponsiveGrid>
-        <ConsumptionCreditsCard />
-      </ResponsiveGrid>
-      <ResponsiveGrid>
-        {merchants.map(({ name, category, summary }) => (
-          <div key={name} className="bg-base-200 card p-2 md:p-4 shadow-sm">
-            <h2 className="text-xl font-semibold">{name}</h2>
-            <p className="text-sm text-gray-500">{category}</p>
-            {summary && <p className="mt-2">{summary}</p>}
-          </div>
-        ))}
-      </ResponsiveGrid>
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="flex flex-col gap-4">
+          <ConsumptionCreditsCard />
+          <ActivationCard />
+        </div>
+        <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {merchants.map(({ name, category, summary }) => (
+            <div key={name} className="bg-base-200 card card-sm shadow-sm">
+              <div className="card-body">
+                <div>
+                  <h2 className="text-xl font-semibold">{name}</h2>
+                  <p className="text-sm text-gray-500">{category}</p>
+                </div>
+                {summary && <p className="mt-2">{summary}</p>}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </StretchColumn>
   );
 }

@@ -63,7 +63,7 @@ export default function Market() {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <div className="flex flex-col gap-4">
           <ConsumptionCreditsCard />
-          <ActivationCard />
+          <ActivationCard hideOnActivate />
         </div>
         <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {merchants.map(({ name, category, summary }) => (

@@ -1,14 +1,26 @@
 "use client";
 
 import Link from "next/dist/client/link";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
-export default function ActivationCard() {
+type Props = {
+  hideOnActivate?: boolean;
+};
+
+export default function ActivationCard({ hideOnActivate }: Props) {
   const [activated, setActivated] = useState(false);
+
+  const activate = useCallback(() => {
+    setActivated(true);
+  }, [setActivated]);
 
   const openModal = () => {
     (document.getElementById("card-activation-modal") as HTMLDialogElement | null)?.showModal();
   };
+
+  if (hideOnActivate && activated) {
+    return null;
+  }
 
   if (activated) {
     return <MarketCard />;
@@ -31,7 +43,7 @@ export default function ActivationCard() {
           <div className="modal-action">
             <form method="dialog">
               <button className="btn mr-3">Cancel</button>
-              <button className="btn btn-primary" onClick={() => setActivated(true)}>Activate</button>
+              <button className="btn btn-primary" onClick={activate}>Activate</button>
             </form>
           </div>
         </div>

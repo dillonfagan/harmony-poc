@@ -88,7 +88,7 @@ type ProjectData = {
 
 function SubmitProposalButton() {
   return (
-    <button className="btn btn-primary">
+    <button className="btn btn-soft btn-primary xl:btn-lg">
       <span className="md:mr-1"><Plus /></span>
       <span className="hidden md:inline">New Proposal</span>
     </button>

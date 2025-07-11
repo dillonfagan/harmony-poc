@@ -24,6 +24,22 @@ export default function Invest() {
       deadline: "2025-11-30"
     },
     {
+      name: "Worker-Owned Bakery",
+      category: "Economic Development",
+      summary: "A worker-owned bakery to provide fair wages and healthy food options in the community.",
+      fundingGoal: 10000,
+      currentFunding: 6000,
+      deadline: "2025-11-30"
+    },
+    {
+      name: "Community Health Clinic",
+      category: "Health & Wellness",
+      summary: "A community health clinic to provide accessible healthcare services to underserved populations.",
+      fundingGoal: 15000,
+      currentFunding: 9500,
+      deadline: "2025-11-30"
+    },
+    {
       name: "Youth Sports Program",
       category: "Youth Development",
       summary: "A sports program for underprivileged youth to promote health and teamwork.",
@@ -107,6 +123,7 @@ function LearnCard() {
           </h2>
         </div>
         <p>When donations are turned into investment credits, these credits are distributed equally amongst every user on the Harmony platform. This gives everyone an equal voice in community funding decisions.</p>
+        <p><strong>No more than 10% of a project's funding can come from a single user.</strong></p>
       </div>
     </div>
   );

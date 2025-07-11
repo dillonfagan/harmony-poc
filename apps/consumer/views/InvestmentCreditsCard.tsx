@@ -10,7 +10,7 @@ export default function InvestmentCreditsCard() {
             <InformationCircleIcon className="size-6" />
           </div>
         </div>
-        <p className="text-2xl md:text-3xl font-bold">789</p>
+        <p className="text-2xl md:text-3xl font-bold">2,400</p>
       </div>
     </div>
   );

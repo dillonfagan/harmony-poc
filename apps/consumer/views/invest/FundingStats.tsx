@@ -4,6 +4,7 @@ import { showModal } from "@/lib/modal";
 import classNames from "classnames";
 import InvestmentCreditsCard from "../InvestmentCreditsCard";
 import { useState } from "react";
+import { getInvestmentCredits, setInvestmentCredits } from "@/lib/account";
 
 type Props = {
   currentFunding: number;
@@ -16,8 +17,9 @@ const modalId = "invest-modal";
 export default function FundingStats({
   currentFunding,
   fundingGoal,
-  isDeadlinePassed
+  isDeadlinePassed,
 }: Props) {
+  const [currentFundingInternal, setCurrentFundingInternal] = useState<number>(currentFunding);
   const openModal = () => showModal(modalId);
 
   return (
@@ -27,42 +29,61 @@ export default function FundingStats({
         <div className="stat-value grow">{fundingGoal.toLocaleString()}</div>
         <div className="stat-actions mt-3">
           <span className="block font-semibold">
-            {Math.floor((currentFunding / fundingGoal) * 100)}% Funded
+            {Math.floor((currentFundingInternal / fundingGoal) * 100)}% Funded
           </span>
           <progress
             className={classNames("progress w-full", {
               "progress-primary": !isDeadlinePassed,
-              "progress-error": isDeadlinePassed && currentFunding < fundingGoal,
-              "progress-success": currentFunding >= fundingGoal,
+              "progress-error":
+                isDeadlinePassed && currentFundingInternal < fundingGoal,
+              "progress-success": currentFundingInternal >= fundingGoal,
             })}
-            value={currentFunding}
+            value={currentFundingInternal}
             max={fundingGoal}
           />
         </div>
       </div>
       <div className="stat flex flex-col">
         <div className="stat-title">Current Funding</div>
-        <div className="stat-value grow">{currentFunding.toLocaleString()}</div>
+        <div className="stat-value grow">
+          {currentFundingInternal.toLocaleString()}
+        </div>
         <div className="stat-actions mt-3">
-          <button className="btn btn-sm lg:btn-md btn-success w-full" disabled={isDeadlinePassed} onClick={openModal}>
+          <button
+            className="btn btn-sm lg:btn-md btn-success w-full"
+            disabled={isDeadlinePassed}
+            onClick={openModal}
+          >
             Invest
           </button>
-          <InvestModal />
+          <InvestModal
+            onInvest={(credits) =>
+              setCurrentFundingInternal((prev) => prev + credits)
+            }
+          />
         </div>
       </div>
     </div>
   );
 }
 
-function InvestModal() {
+function InvestModal({ onInvest }: { onInvest?: (credits: number) => void }) {
+  const creditBalance = getInvestmentCredits();
   const [form, setForm] = useState({
-    amount: 100,
+    amount: creditBalance > 100 ? 100 : creditBalance,
   });
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  }
-  
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setForm({ ...form, [e.target.name]: Number(e.target.value) });
+  };
+
+  const onSubmit = () => {
+    setInvestmentCredits(creditBalance - form.amount);
+    onInvest?.(form.amount);
+  };
+
   return (
     <dialog id={modalId} className="modal modal-bottom md:modal-middle">
       <div className="modal-box">
@@ -71,14 +92,28 @@ function InvestModal() {
         <div className="mt-4">
           <fieldset className="fieldset">
             <legend className="fieldset-legend">Credits</legend>
-            <input className="input" required name="amount" type="number" value={form.amount} onChange={handleChange} min={1} max={2400} step={1} />
-            <p className="label">How many credits would you like to allocate to this proposal?</p>
+            <input
+              className="input"
+              required
+              name="amount"
+              type="number"
+              value={form.amount}
+              onChange={handleChange}
+              min={1}
+              max={creditBalance}
+              step={1}
+            />
+            <p className="label">
+              How many credits would you like to allocate to this proposal?
+            </p>
           </fieldset>
         </div>
         <div className="modal-action">
           <form method="dialog">
             <button className="btn mr-3">Cancel</button>
-            <button className="btn btn-success">Invest</button>
+            <button className="btn btn-success" onClick={onSubmit}>
+              Invest
+            </button>
           </form>
         </div>
       </div>

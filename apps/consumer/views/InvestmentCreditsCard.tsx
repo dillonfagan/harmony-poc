@@ -1,6 +1,8 @@
+import { getInvestmentCredits } from "@/lib/account";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 
 export default function InvestmentCreditsCard() {
+  const credits = getInvestmentCredits();
   return (
     <div className="bg-secondary text-secondary-content card card-sm shadow">
       <div className="card-body">
@@ -10,7 +12,7 @@ export default function InvestmentCreditsCard() {
             <InformationCircleIcon className="size-6" />
           </div>
         </div>
-        <p className="text-2xl md:text-3xl font-bold">2,400</p>
+        <p className="text-2xl md:text-3xl font-bold">{credits.toLocaleString()}</p>
       </div>
     </div>
   );

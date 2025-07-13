@@ -2,6 +2,7 @@ import { StretchColumn } from "@/components/layouts";
 import PageHeading from "@/components/PageHeading";
 import { formatDate } from "@/lib/format";
 import { getInvestment } from "@/lib/investments";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -36,6 +37,19 @@ export default async function Project({ params }: Props) {
             currentFunding={currentFunding}
             fundingGoal={fundingGoal}
           />
+          <div className="card border border-base-300">
+            <div className="card-body">
+              <div className="flex items-center gap-2">
+                <div className="avatar">
+                  <div className="bg-primary text-primary-content rounded-full p-2">
+                    <UserCircleIcon className="size-6" />
+                  </div>
+                </div>
+                <h2 className="font-semibold text-xl">James Poster</h2>
+              </div>
+              <p>James has been a community member since 2025. He lives in Providence with his cat.</p>
+            </div>
+          </div>
         </div>
         <div className="card border border-base-300 lg:col-span-2">
           <div className="card-body">

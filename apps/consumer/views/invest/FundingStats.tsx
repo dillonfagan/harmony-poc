@@ -22,10 +22,10 @@ export default function FundingStats({
 
   return (
     <div className="stats bg-base-100 border-base-300 border">
-      <div className="stat">
+      <div className="stat flex flex-col">
         <div className="stat-title">Funding Goal</div>
-        <div className="stat-value">{fundingGoal.toLocaleString()}</div>
-        <div className="stat-actions mt-3 grow">
+        <div className="stat-value grow">{fundingGoal.toLocaleString()}</div>
+        <div className="stat-actions mt-3">
           <span className="block font-semibold">
             {Math.floor((currentFunding / fundingGoal) * 100)}% Funded
           </span>
@@ -40,11 +40,11 @@ export default function FundingStats({
           />
         </div>
       </div>
-      <div className="stat">
+      <div className="stat flex flex-col">
         <div className="stat-title">Current Funding</div>
-        <div className="stat-value">{currentFunding.toLocaleString()}</div>
-        <div className="stat-actions mt-3 grow">
-          <button className="btn btn-xs lg:btn-sm btn-success w-full" disabled={isDeadlinePassed} onClick={openModal}>
+        <div className="stat-value grow">{currentFunding.toLocaleString()}</div>
+        <div className="stat-actions mt-3">
+          <button className="btn btn-sm lg:btn-md btn-success w-full" disabled={isDeadlinePassed} onClick={openModal}>
             Invest
           </button>
           <InvestModal />

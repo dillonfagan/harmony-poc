@@ -41,7 +41,7 @@ export default function DashboardLayout({ children }: PropsWithChildren) {
       </div>
       <div className="dock lg:hidden">
         {links.map(({ href, label, icon }) => (
-          <Link key={href} href={href} role="button" className={pathname.endsWith(href) ? "dock-active" : undefined}>
+          <Link key={href} href={href} role="button" className={pathname.includes(href) ? "dock-active" : undefined}>
             {icon}
             <span className="dock-label">{label}</span>
           </Link>

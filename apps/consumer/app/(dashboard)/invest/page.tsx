@@ -4,58 +4,11 @@ import { StretchColumn } from "@/components/layouts";
 import PageHeading from "@/components/PageHeading";
 import InvestmentCreditsCard from "@/views/InvestmentCreditsCard";
 import classNames from "classnames";
+import Link from "next/link";
+import { getInvestments } from "@/lib/investments";
 
 export default function Invest() {
-  const projects: ProjectData[] = [
-    {
-      name: "Community Garden",
-      category: "Environment",
-      summary: "A community garden project to promote local food production and biodiversity.",
-      fundingGoal: 5000,
-      currentFunding: 1200,
-      deadline: "2025-12-31"
-    },
-    {
-      name: "Local Art Mural",
-      category: "Arts & Culture",
-      summary: "A mural project to beautify the neighborhood and support local artists.",
-      fundingGoal: 3000,
-      currentFunding: 800,
-      deadline: "2025-11-30"
-    },
-    {
-      name: "Worker-Owned Bakery",
-      category: "Economic Development",
-      summary: "A worker-owned bakery to provide fair wages and healthy food options in the community.",
-      fundingGoal: 10000,
-      currentFunding: 6000,
-      deadline: "2025-11-30"
-    },
-    {
-      name: "Community Health Clinic",
-      category: "Health & Wellness",
-      summary: "A community health clinic to provide accessible healthcare services to underserved populations.",
-      fundingGoal: 15000,
-      currentFunding: 9500,
-      deadline: "2025-11-30"
-    },
-    {
-      name: "Youth Sports Program",
-      category: "Youth Development",
-      summary: "A sports program for underprivileged youth to promote health and teamwork.",
-      fundingGoal: 7000,
-      currentFunding: 2500,
-      deadline: "2025-01-15"
-    },
-    {
-      name: "Tool Library",
-      category: "Community Services",
-      summary: "A community tool library to provide access to tools for DIY projects and repairs.",
-      fundingGoal: 4000,
-      currentFunding: 4600,
-      deadline: "2024-10-31"
-    }
-  ];
+  const projects = getInvestments();
 
   return (
     <StretchColumn>
@@ -66,7 +19,7 @@ export default function Invest() {
           <LearnCard />
         </div>
         <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {projects.map(({ name, category, summary, fundingGoal, currentFunding, deadline }) => {
+          {projects.map(({ id,name, category, summary, fundingGoal, currentFunding, deadline }) => {
             const funded = currentFunding >= fundingGoal;
             const percentFunded = Math.floor((currentFunding / fundingGoal) * 100);
             const fundingShortfall = fundingGoal - currentFunding;
@@ -80,7 +33,7 @@ export default function Invest() {
             const isDeadlinePassed = deadlineDate < new Date();
 
             return (
-              <div key={name} className="bg-base-200 card card-sm shadow-sm">
+              <Link href={`/invest/${id}`} key={name} className="bg-base-200 hover:bg-base-300 active:bg-base-200 card card-sm shadow-sm" role="button">
                 <div className="card-body flex flex-col">
                   <div>
                     <h2 className="text-lg font-semibold">{name}</h2>
@@ -94,7 +47,7 @@ export default function Invest() {
                     <progress className={classNames("progress w-full", { "progress-primary": !funded && !isDeadlinePassed, "progress-error": !funded && isDeadlinePassed, "progress-success": funded })} value={currentFunding} max={fundingGoal} />
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
@@ -102,15 +55,6 @@ export default function Invest() {
     </StretchColumn>
   );
 }
-
-type ProjectData = {
-  name: string;
-  category: string;
-  summary: string;
-  fundingGoal: number;
-  currentFunding: number;
-  deadline: string;
-};
 
 function LearnCard() {
   return (

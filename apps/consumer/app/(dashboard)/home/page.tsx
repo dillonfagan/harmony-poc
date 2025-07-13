@@ -6,9 +6,16 @@ import InvestmentCreditsCard from "@/views/InvestmentCreditsCard";
 import Link from "next/link";
 
 export default function Home() {
+  const date = new Date();
+  const formattedDate = date.toLocaleDateString(undefined, {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
     <StretchColumn>
-      <PageHeading title="Hi, Alice" />
+      <PageHeading title="Hi, Alice" subtitle={formattedDate} />
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <div className="flex flex-col gap-4">
           <ConsumptionCreditsCard />

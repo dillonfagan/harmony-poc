@@ -1,5 +1,6 @@
 "use client";
 
+import { showModal } from "@/lib/modal";
 import Link from "next/dist/client/link";
 import { useCallback, useState } from "react";
 
@@ -14,9 +15,7 @@ export default function ActivationCard({ hideOnActivate }: Props) {
     setActivated(true);
   }, [setActivated]);
 
-  const openModal = () => {
-    (document.getElementById("card-activation-modal") as HTMLDialogElement | null)?.showModal();
-  };
+  const openModal = () => showModal("card-activation-modal");
 
   if (hideOnActivate && activated) {
     return null;

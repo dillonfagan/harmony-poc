@@ -1,5 +1,6 @@
 import { StretchColumn } from "@/components/layouts";
 import PageHeading from "@/components/PageHeading";
+import { formatDate } from "@/lib/format";
 import { getInvestment } from "@/lib/investments";
 
 type Props = {
@@ -15,6 +16,7 @@ export default async function Project({ params }: Props) {
   }
 
   const { name, category, summary, fundingGoal, currentFunding, deadline } = project;
+  const formattedDeadline = formatDate(deadline);
 
   return (
     <StretchColumn>
@@ -22,13 +24,64 @@ export default async function Project({ params }: Props) {
         title={name}
         backLink={{ href: "/invest", label: "Investments" }}
         subtitle={
-          <div className="badge badge-outline badge-lg">{category}</div>
+          <div className="flex flex-wrap gap-2">
+            <div className="badge badge-outline lg:badge-lg shadow-sm">{category}</div>
+            <div className="badge badge-soft lg:badge-lg shadow-sm">{formattedDeadline}</div>
+          </div>
         }
       />
-      <p className="text-lg lg:text-2xl">{summary}</p>
-      <p>Funding Goal: {fundingGoal.toLocaleString()}</p>
-      <p>Current Funding: {currentFunding.toLocaleString()}</p>
-      <p>Deadline: {deadline}</p>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="flex flex-col gap-4">
+          <FundingStats
+            currentFunding={currentFunding}
+            fundingGoal={fundingGoal}
+          />
+        </div>
+        <div className="card border border-base-300 lg:col-span-2">
+          <div className="card-body">
+            <p className="text-xl lg:text-3xl">{summary}</p>
+            <p className="mt-3 max-w-prose">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+          </div>
+        </div>
+      </div>
     </StretchColumn>
+  );
+}
+
+function FundingStats({
+  currentFunding,
+  fundingGoal,
+}: {
+  currentFunding: number;
+  fundingGoal: number;
+}) {
+  return (
+    <div className="stats bg-base-100 border-base-300 border">
+      <div className="stat">
+        <div className="stat-title">Funding Goal</div>
+        <div className="stat-value">{fundingGoal.toLocaleString()}</div>
+        <div className="stat-actions mt-3 grow">
+          <span className="block font-semibold">
+            {Math.floor((currentFunding / fundingGoal) * 100)}% Funded
+          </span>
+          <progress
+            className="progress w-full progress-primary"
+            value={currentFunding}
+            max={fundingGoal}
+          />
+        </div>
+      </div>
+      <div className="stat">
+        <div className="stat-title">Current Funding</div>
+        <div className="stat-value">{currentFunding.toLocaleString()}</div>
+        <div className="stat-actions mt-3 grow">
+          <button className="btn btn-xs lg:btn-sm btn-success w-full">
+            Invest
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }

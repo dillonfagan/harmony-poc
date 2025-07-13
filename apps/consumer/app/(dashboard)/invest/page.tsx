@@ -6,6 +6,7 @@ import InvestmentCreditsCard from "@/views/InvestmentCreditsCard";
 import classNames from "classnames";
 import Link from "next/link";
 import { getInvestments } from "@/lib/investments";
+import { formatDate } from "@/lib/format";
 
 export default function Invest() {
   const projects = getInvestments();
@@ -24,12 +25,8 @@ export default function Invest() {
             const percentFunded = Math.floor((currentFunding / fundingGoal) * 100);
             const fundingShortfall = fundingGoal - currentFunding;
             const formattedShortfall = fundingShortfall.toLocaleString();
+            const formattedDeadline = formatDate(deadline);
             const deadlineDate = new Date(deadline);
-            const formattedDeadline = deadlineDate.toLocaleDateString(undefined, {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            });
             const isDeadlinePassed = deadlineDate < new Date();
 
             return (
@@ -58,7 +55,7 @@ export default function Invest() {
 
 function LearnCard() {
   return (
-    <div className="card card-border card-sm">
+    <div className="card card-border border-base-300 card-sm">
       <div className="card-body">
         <div className="flex gap-2">
           <LightBulbIcon className="size-6 text-amber-400" />

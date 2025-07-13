@@ -3,6 +3,7 @@ import PageHeading from "@/components/PageHeading";
 import { formatDate } from "@/lib/format";
 import { getInvestment } from "@/lib/investments";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
+import classNames from "classnames";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -18,6 +19,7 @@ export default async function Project({ params }: Props) {
 
   const { name, category, summary, fundingGoal, currentFunding, deadline } = project;
   const formattedDeadline = formatDate(deadline);
+  const isDeadlinePassed = new Date(deadline) < new Date();
 
   return (
     <StretchColumn>
@@ -26,8 +28,12 @@ export default async function Project({ params }: Props) {
         backLink={{ href: "/invest", label: "Investments" }}
         subtitle={
           <div className="flex flex-wrap gap-2">
-            <div className="badge badge-outline lg:badge-lg shadow-sm">{category}</div>
-            <div className="badge badge-soft lg:badge-lg shadow-sm">{formattedDeadline}</div>
+            <div className="badge lg:badge-lg shadow-sm">{category}</div>
+            <div className={classNames("badge badge-soft lg:badge-lg shadow-sm", {
+              "badge-primary": !isDeadlinePassed,
+              "badge-error": isDeadlinePassed && currentFunding < fundingGoal,
+              "badge-success": currentFunding >= fundingGoal,
+            })}>{formattedDeadline}</div>
           </div>
         }
       />
@@ -36,6 +42,7 @@ export default async function Project({ params }: Props) {
           <FundingStats
             currentFunding={currentFunding}
             fundingGoal={fundingGoal}
+            isDeadlinePassed={isDeadlinePassed}
           />
           <div className="card border border-base-300">
             <div className="card-body">
@@ -67,9 +74,11 @@ export default async function Project({ params }: Props) {
 function FundingStats({
   currentFunding,
   fundingGoal,
+  isDeadlinePassed
 }: {
   currentFunding: number;
   fundingGoal: number;
+  isDeadlinePassed?: boolean;
 }) {
   return (
     <div className="stats bg-base-100 border-base-300 border">
@@ -81,7 +90,11 @@ function FundingStats({
             {Math.floor((currentFunding / fundingGoal) * 100)}% Funded
           </span>
           <progress
-            className="progress w-full progress-primary"
+            className={classNames("progress w-full", {
+              "progress-primary": !isDeadlinePassed,
+              "progress-error": isDeadlinePassed && currentFunding < fundingGoal,
+              "progress-success": currentFunding >= fundingGoal,
+            })}
             value={currentFunding}
             max={fundingGoal}
           />
@@ -91,7 +104,7 @@ function FundingStats({
         <div className="stat-title">Current Funding</div>
         <div className="stat-value">{currentFunding.toLocaleString()}</div>
         <div className="stat-actions mt-3 grow">
-          <button className="btn btn-xs lg:btn-sm btn-success w-full">
+          <button className="btn btn-xs lg:btn-sm btn-success w-full" disabled={isDeadlinePassed}>
             Invest
           </button>
         </div>

@@ -1,6 +1,7 @@
 import { StretchColumn } from "@/components/layouts";
 import PageHeading from "@/components/PageHeading";
 import ActivationCard from "@/views/ActivationCard";
+import CommunityCreditsCard from "@/views/CommunityCreditsCard";
 import ConsumptionCreditsCard from "@/views/ConsumptionCreditsCard";
 import InvestmentCreditsCard from "@/views/InvestmentCreditsCard";
 import Link from "next/link";
@@ -20,6 +21,7 @@ export default function Home() {
         <div className="flex flex-col gap-4">
           <ConsumptionCreditsCard />
           <InvestmentCreditsCard />
+          <CommunityCreditsCard />
         </div>
         <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-4">
           <ActivationCard />

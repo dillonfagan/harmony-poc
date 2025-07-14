@@ -63,8 +63,7 @@ function LearnCard() {
             Learn
           </h2>
         </div>
-        <p>When donations are turned into investment credits, these credits are distributed equally amongst every user on the Harmony platform. This gives everyone an equal voice in community funding decisions.</p>
-        <p><strong>No more than 10% of a project's funding can come from a single user.</strong></p>
+        <p>All donations and 3% of all cash deposits become investment credits. All members receive an equal share of the total investment credits each quarter. This gives everyone an equal voice in community funding decisions.</p>
       </div>
     </div>
   );

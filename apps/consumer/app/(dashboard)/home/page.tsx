@@ -48,11 +48,10 @@ function LearnCard() {
     <div className="card border border-base-300">
       <div className="card-body">
         <h2 className="text-xl font-semibold">How does Harmony work?</h2>
-        <ol className="list-decimal pl-6 mt-2 space-y-1">
-          <li>Deposit money to receive Harmony credits.</li>
-          <li>Credits can be redeemed at participating businesses.</li>
-          <li>Credits can be withdrawn for cash at any time.</li>
-          <li>3% of deposits cannot be withdrawn and are used to fund community projects.</li>
+        <ol className="list-decimal pl-6 mt-2 space-y-1 lg:text-lg">
+          <li>Deposit money to receive consumption credits.</li>
+          <li>Redeem consumption credits at participating businesses. No transaction fees!</li>
+          <li>All deposited cash is used to fund grants for community projects.</li>
         </ol>
       </div>
     </div>

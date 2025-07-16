@@ -6,9 +6,20 @@ export type ProjectData = {
   fundingGoal: number;
   currentFunding: number;
   deadline: string;
+  internal?: boolean;
 };
 
 const investments: ProjectData[] = [
+    {
+      id: "i",
+      name: "Harmony Recycling Council",
+      category: "Environment",
+      summary: "A worker council that produces reusable containers and promotes recycling. The council will be wholly owned by the Harmony cooperative.",
+      fundingGoal: 100_000,
+      currentFunding: 5_000,
+      deadline: "2025-12-31",
+      internal: true
+    },
     {
       id: "1",
       name: "Community Garden",

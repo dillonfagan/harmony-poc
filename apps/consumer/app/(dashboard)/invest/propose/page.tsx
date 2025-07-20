@@ -2,6 +2,7 @@
 
 import { StretchColumn } from "@/components/layouts";
 import PageHeading from "@/components/PageHeading";
+import LightBulbIcon from "@heroicons/react/24/solid/esm/LightBulbIcon";
 import { useCallback, useMemo, useState } from "react";
 
 type FormElement = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
@@ -42,11 +43,6 @@ export default function ProposeProject() {
     return Math.round(capitalNeeded * interestRate * (term / 12));
   }, [formData]);
 
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert("Project proposal submitted! An officer of the cooperative will review it shortly.");
-  };
-
   const onChange = useCallback((e: React.ChangeEvent<FormElement>) => {
     const { fundingType, projectType } = formData;
     const data = { ...formData, [e.target.name]: e.target.value };
@@ -62,16 +58,30 @@ export default function ProposeProject() {
     setFormData(data);
   }, [formData]);
 
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    alert("Project proposal submitted! An officer of the cooperative will review it shortly.");
+  };
+
   return (
     <StretchColumn>
       <PageHeading title="Propose a Project" backLink={{ href: "/invest", label: "Investments" }} />
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="lg:col-span-1 card border border-base-300">
-          <div className="card-body">
-            <div>Are you proposing an internal or external project?</div>
-            <div>Internal projects are owned by the cooperative, while external projects are owned by outside organizations.</div>
-            <div>Internal projects are funded directly by the cooperative.</div>
-            <div>External projects may choose from a few funding options, including grants and loans.</div>
+        <div className="lg:col-span-1 flex flex-col gap-4">
+          <div className="card border border-base-300">
+            <div className="card-body">
+              <div className="flex gap-2">
+                <LightBulbIcon className="size-6 text-amber-400" />
+                <h2 className="text-xl font-semibold mb-3">
+                  Learn
+                </h2>
+              </div>
+              <div className="flex flex-col gap-4">
+                <p className="lg:text-lg">Internal projects are owned by the cooperative, while external projects are owned by other organizations.</p>
+                <p className="lg:text-lg">Internal projects are funded directly by the cooperative.</p>
+                <p className="lg:text-lg">External projects may choose from a few funding options, including grants and loans.</p>
+              </div>
+            </div>
           </div>
         </div>
         <form className="lg:col-span-2 card shadow" onSubmit={onSubmit}>

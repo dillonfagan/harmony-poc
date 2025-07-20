@@ -74,9 +74,9 @@ function LearnCard() {
 
 function SubmitProposalButton() {
   return (
-    <button className="btn btn-primary">
+    <Link href="/invest/propose" className="btn btn-primary" role="button">
       <span className="md:mr-1"><PlusIcon className="size-6" /></span>
       <span className="hidden md:inline">New Proposal</span>
-    </button>
+    </Link>
   );
 }

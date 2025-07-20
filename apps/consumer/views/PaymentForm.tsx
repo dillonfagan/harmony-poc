@@ -10,7 +10,6 @@ export default function PaymentForm() {
     routingNumber: "",
     accountNumber: "",
     amount: "",
-    investmentCredits: 3,
   });
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
@@ -63,8 +62,7 @@ export default function PaymentForm() {
         />
       </fieldset>
       <fieldset className="fieldset bg-base-100 border border-base-300 p-3 rounded-box">
-        <legend className="fieldset-legend">Donation</legend>
-        <label className="label">Amount (USD)</label>
+        <legend className="fieldset-legend">Amount (USD)</legend>
         <input
           className="input"
           name="amount"
@@ -75,19 +73,6 @@ export default function PaymentForm() {
           min="1"
           step="0.01"
           placeholder="Amount"
-        />
-        <label className="label">% Investment Credits</label>
-        <input
-          className="input"
-          name="investmentCredits"
-          value={form.investmentCredits}
-          onChange={handleChange}
-          required
-          type="number"
-          min="3"
-          max="100"
-          step="1"
-          placeholder="%"
         />
       </fieldset>
       <button className="btn btn-primary mt-2" type="submit">

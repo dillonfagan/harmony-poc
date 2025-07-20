@@ -34,7 +34,7 @@ export default function DashboardLayout({ children }: PropsWithChildren) {
             </ul>
           </div>
           <div className="navbar-end hidden lg:flex">
-            <Link href="/donate" className="btn btn-ghost" role="button">Donate</Link>
+            <Link href="/fund" className="btn btn-ghost" role="button">Add Funds</Link>
           </div>
         </nav>
         <main className="grow pb-16 lg:pb-0 z-0">{children}</main>

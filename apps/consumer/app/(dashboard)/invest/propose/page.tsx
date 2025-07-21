@@ -2,6 +2,7 @@
 
 import { StretchColumn } from "@/components/layouts";
 import PageHeading from "@/components/PageHeading";
+import { calculateLoanInterest, FundingType, InterestRate, ProjectDomain, TermLength } from "@/lib/investments";
 import LightBulbIcon from "@heroicons/react/24/solid/esm/LightBulbIcon";
 import { useCallback, useMemo, useState } from "react";
 
@@ -9,17 +10,13 @@ type FormElement = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
 type ProposalFormData = {
   name: string;
-  projectType: 'internal' | 'external';
-  fundingType: 'loan' | 'grant';
+  projectType: ProjectDomain;
+  fundingType: FundingType;
   interestRate?: InterestRate;
   capitalNeeded: number;
   term?: TermLength;
   summary: string;
 };
-
-type InterestRate = 0 | 0.01 | 0.02 | 0.03 | 0.04 | 0.05;
-
-type TermLength = 12 | 24 | 36 | 48 | 60 | 72 | 84 | 96 | 108 | 120;
 
 export default function ProposeProject() {
   const [formData, setFormData] = useState<ProposalFormData>({
@@ -40,7 +37,7 @@ export default function ProposeProject() {
       return 0;
     }
 
-    return Math.round(capitalNeeded * interestRate * (term / 12));
+    return Math.round(calculateLoanInterest(capitalNeeded, interestRate, term));
   }, [formData]);
 
   const onChange = useCallback((e: React.ChangeEvent<FormElement>) => {

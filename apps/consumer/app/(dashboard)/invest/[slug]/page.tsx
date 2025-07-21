@@ -1,7 +1,7 @@
 import { StretchColumn } from "@/components/layouts";
 import PageHeading from "@/components/PageHeading";
 import { formatDate } from "@/lib/format";
-import { getInvestment } from "@/lib/investments";
+import { calculateLoanInterest, getInvestment } from "@/lib/investments";
 import FundingStats from "@/views/invest/FundingStats";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
@@ -18,9 +18,11 @@ export default async function Project({ params }: Props) {
     return <div className="text-center">Project not found</div>;
   }
 
-  const { name, category, summary, fundingGoal, currentFunding, deadline } = project;
+  const { name, category, summary, fundingGoal, currentFunding, deadline, fundingType, interestRate, term } = project;
   const formattedDeadline = formatDate(deadline);
   const isDeadlinePassed = new Date(deadline) < new Date();
+
+  const interestIncome = calculateLoanInterest(fundingGoal, interestRate, term);
 
   return (
     <StretchColumn>
@@ -45,6 +47,17 @@ export default async function Project({ params }: Props) {
             fundingGoal={fundingGoal}
             isDeadlinePassed={isDeadlinePassed}
           />
+          {fundingType === "loan" && (
+            <div className="card border border-base-300">
+              <div className="card-body">
+                <h2 className="text-xl font-semibold">Loan Details</h2>
+                {interestIncome > 0 && <p className="font-semibold">This loan will generate ${interestIncome.toLocaleString()} in interest income.</p>}
+                <p>Type: {fundingType.toUpperCase()}</p>
+                <p>Interest Rate: {interestRate ? `${(interestRate * 100).toFixed(2)}%` : "N/A"}</p>
+                <p>Term: {term ? `${term} months` : "N/A"}</p>
+              </div>
+            </div>
+          )}
           <div className="card border border-base-300">
             <div className="card-body">
               <div className="flex items-center gap-2">
@@ -59,12 +72,14 @@ export default async function Project({ params }: Props) {
             </div>
           </div>
         </div>
-        <div className="card border border-base-300 lg:col-span-2">
-          <div className="card-body">
-            <p className="text-xl lg:text-3xl">{summary}</p>
-            <p className="mt-3 max-w-prose">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+        <div className="lg:col-span-2 flex flex-col gap-4">
+          <div className="card border border-base-300">
+            <div className="card-body">
+              <p className="text-xl lg:text-3xl">{summary}</p>
+              <p className="mt-3 max-w-prose">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+            </div>
           </div>
         </div>
       </div>

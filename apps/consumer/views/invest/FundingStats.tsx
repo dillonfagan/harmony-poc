@@ -49,16 +49,16 @@ export default function FundingStats({
         <div className="stat-value grow">
           {currentFundingInternal.toLocaleString()}
         </div>
-        <div className="stat-actions flex justify-between gap-2 mt-3">
+        <div className="stat-actions flex gap-2 mt-3">
           <button
-            className="btn btn-sm lg:btn-md btn-success"
+            className="btn btn-sm lg:btn-md btn-success grow"
             disabled={isDeadlinePassed || investmentCredits === 0}
             onClick={openInvestModal}
           >
             <HandThumbUpIcon className="size-6" />
           </button>
           <button
-            className="btn btn-sm lg:btn-md btn-warning"
+            className="btn btn-sm lg:btn-md btn-warning grow"
             disabled={isDeadlinePassed || investmentCredits === 0}
             onClick={openFeedbackModal}
           >

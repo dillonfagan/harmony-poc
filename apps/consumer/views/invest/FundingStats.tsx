@@ -18,6 +18,7 @@ export default function FundingStats({
   fundingGoal,
   isDeadlinePassed,
 }: Props) {
+  const { investmentCredits } = useAccount();
   const [currentFundingInternal, setCurrentFundingInternal] = useState<number>(currentFunding);
   const openModal = () => showModal(modalId);
 
@@ -50,7 +51,7 @@ export default function FundingStats({
         <div className="stat-actions mt-3">
           <button
             className="btn btn-sm lg:btn-md btn-success w-full"
-            disabled={isDeadlinePassed}
+            disabled={isDeadlinePassed || investmentCredits === 0}
             onClick={openModal}
           >
             Invest

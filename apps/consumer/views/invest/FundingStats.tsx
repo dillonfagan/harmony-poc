@@ -1,17 +1,17 @@
 "use client";
 import { showModal } from "@/lib/modal";
 import classNames from "classnames";
-import InvestmentCreditsCard from "../InvestmentCreditsCard";
 import { useState } from "react";
 import { useAccount } from "@/lib/account";
+import { HandThumbDownIcon, HandThumbUpIcon } from "@heroicons/react/24/solid";
+import InvestModal, { modalId as investModalId } from "./InvestModal";
+import FeedbackModal, { modalId as feedbackModalId } from "./FeedbackModal";
 
 type Props = {
   currentFunding: number;
   fundingGoal: number;
   isDeadlinePassed?: boolean;
 };
-
-const modalId = "invest-modal";
 
 export default function FundingStats({
   currentFunding,
@@ -20,7 +20,8 @@ export default function FundingStats({
 }: Props) {
   const { investmentCredits } = useAccount();
   const [currentFundingInternal, setCurrentFundingInternal] = useState<number>(currentFunding);
-  const openModal = () => showModal(modalId);
+  const openInvestModal = () => showModal(investModalId);
+  const openFeedbackModal = () => showModal(feedbackModalId);
 
   return (
     <div className="stats bg-base-100 border-base-300 border">
@@ -48,79 +49,31 @@ export default function FundingStats({
         <div className="stat-value grow">
           {currentFundingInternal.toLocaleString()}
         </div>
-        <div className="stat-actions mt-3">
+        <div className="stat-actions flex justify-between gap-2 mt-3">
           <button
-            className="btn btn-sm lg:btn-md btn-success w-full"
+            className="btn btn-sm lg:btn-md btn-success"
             disabled={isDeadlinePassed || investmentCredits === 0}
-            onClick={openModal}
+            onClick={openInvestModal}
           >
-            Invest
+            <HandThumbUpIcon className="size-6" />
+          </button>
+          <button
+            className="btn btn-sm lg:btn-md btn-warning"
+            disabled={isDeadlinePassed || investmentCredits === 0}
+            onClick={openFeedbackModal}
+          >
+            <HandThumbDownIcon className="size-6" />
           </button>
           <InvestModal
             onInvest={(credits) =>
               setCurrentFundingInternal((prev) => prev + credits)
             }
           />
+          <FeedbackModal />
         </div>
       </div>
     </div>
   );
 }
 
-type InvestFormData = {
-  amount: number;
-};
 
-function InvestModal({ onInvest }: { onInvest?: (credits: number) => void }) {
-  const { investmentCredits, update } = useAccount();
-  const [form, setForm] = useState<InvestFormData>({
-    amount: investmentCredits > 100 ? 100 : investmentCredits,
-  });
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    setForm({ ...form, [e.target.name]: Number(e.target.value) });
-  };
-
-  const onSubmit = () => {
-    update({ investmentCredits: investmentCredits - (form.amount ?? 0) });
-    onInvest?.(form.amount ?? 0);
-  };
-
-  return (
-    <dialog id={modalId} className="modal modal-bottom md:modal-middle">
-      <div className="modal-box">
-        <h3 className="font-bold text-lg mb-4">Invest</h3>
-        <InvestmentCreditsCard />
-        <div className="mt-4">
-          <fieldset className="fieldset">
-            <legend className="fieldset-legend">Credits</legend>
-            <input
-              className="input"
-              required
-              name="amount"
-              type="number"
-              value={form.amount}
-              onChange={handleChange}
-              min={1}
-              max={investmentCredits}
-              step={1}
-            />
-            <p className="label">
-              How many credits would you like to allocate to this proposal?
-            </p>
-          </fieldset>
-        </div>
-        <div className="modal-action">
-          <form method="dialog">
-            <button className="btn mr-3">Cancel</button>
-            <button className="btn btn-success" onClick={onSubmit}>
-              Invest
-            </button>
-          </form>
-        </div>
-      </div>
-    </dialog>
-  );
-}

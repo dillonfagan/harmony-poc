@@ -18,7 +18,7 @@ export default function Investment({ id }: Props) {
     return <div className="text-center">Project not found</div>;
   }
 
-  const { name, category, summary, fundingGoal, currentFunding, deadline, fundingType, interestRate, term } = project;
+  const { name, summary, fundingGoal, currentFunding, deadline, fundingType, interestRate, term } = project;
   const formattedDeadline = formatDate(deadline);
   const isDeadlinePassed = new Date(deadline) < new Date();
 
@@ -31,9 +31,7 @@ export default function Investment({ id }: Props) {
         backLink={{ href: "/invest", label: "Investments" }}
         subtitle={
           <div className="flex flex-wrap gap-2">
-            <div className="badge lg:badge-lg shadow-sm">{category}</div>
-            <div className={classNames("badge badge-soft lg:badge-lg shadow-sm", {
-              "badge-primary": !isDeadlinePassed,
+            <div className={classNames("badge lg:badge-lg", {
               "badge-error": isDeadlinePassed && currentFunding < fundingGoal,
               "badge-success": currentFunding >= fundingGoal,
             })}>{formattedDeadline}</div>

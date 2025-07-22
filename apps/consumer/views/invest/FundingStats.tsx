@@ -67,21 +67,30 @@ export default function FundingStats({
   );
 }
 
+type InvestFormData = {
+  amount: number | undefined;
+};
+
 function InvestModal({ onInvest }: { onInvest?: (credits: number) => void }) {
   const creditBalance = getInvestmentCredits();
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<InvestFormData>({
     amount: creditBalance > 100 ? 100 : creditBalance,
   });
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    setForm({ ...form, [e.target.name]: Number(e.target.value) });
+    const data = { ...form, [e.target.name]: Number(e.target.value) };
+    if (data.amount === 0) {
+      data.amount = undefined;
+    }
+
+    setForm(data);
   };
 
   const onSubmit = () => {
-    setInvestmentCredits(creditBalance - form.amount);
-    onInvest?.(form.amount);
+    setInvestmentCredits(creditBalance - (form.amount ?? 0));
+    onInvest?.(form.amount ?? 0);
   };
 
   return (

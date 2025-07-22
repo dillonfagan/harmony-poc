@@ -1,3 +1,4 @@
+"use client";
 import { StretchColumn } from "@/components/layouts";
 import PageHeading from "@/components/PageHeading";
 import ActivationCard from "@/views/ActivationCard";

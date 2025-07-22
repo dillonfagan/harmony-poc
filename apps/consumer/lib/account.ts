@@ -1,9 +1,23 @@
-let investmentCredits: number = 2400;
+import { useBase } from "./storage";
 
-export const getInvestmentCredits = () => {
-  return investmentCredits;
+type AccountData = {
+  consumptionCredits: number;
+  investmentCredits: number;
 };
 
-export const setInvestmentCredits = (credits: number) => {
-  investmentCredits = credits;
+const defaultAccount: AccountData = {
+  consumptionCredits: 1234,
+  investmentCredits: 2400,
+};
+
+export const useAccount = () => {
+  const base = useBase<AccountData>({ key: "accounts", defaultValue: { items: [defaultAccount] } });
+  const account = base.items[0];
+
+  return {
+    ...account,
+    update: (data: Partial<AccountData>) => {
+      base.update({ items: [ { ...account, ...data } ] });
+    }
+  };
 };

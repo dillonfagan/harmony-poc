@@ -1,3 +1,4 @@
+"use client";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { LightBulbIcon, StarIcon } from "@heroicons/react/24/solid";
 import { StretchColumn } from "@/components/layouts";
@@ -5,11 +6,11 @@ import PageHeading from "@/components/PageHeading";
 import InvestmentCreditsCard from "@/views/InvestmentCreditsCard";
 import classNames from "classnames";
 import Link from "next/link";
-import { getInvestments } from "@/lib/investments";
+import { useInvestments } from "@/lib/investments";
 import { formatDate } from "@/lib/format";
 
 export default function Invest() {
-  const projects = getInvestments();
+  const projects = useInvestments();
 
   return (
     <StretchColumn>
@@ -20,7 +21,7 @@ export default function Invest() {
           <LearnCard />
         </div>
         <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {projects.map(({ id,name, category, summary, fundingGoal, currentFunding, deadline, internal }) => {
+          {projects.items.map(({ id, name, category, summary, fundingGoal, currentFunding, deadline, internal }) => {
             const funded = currentFunding >= fundingGoal;
             const percentFunded = Math.floor((currentFunding / fundingGoal) * 100);
             const fundingShortfall = fundingGoal - currentFunding;

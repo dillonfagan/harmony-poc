@@ -1,14 +1,17 @@
+"use client";
 import { StretchColumn } from "@/components/layouts";
 import PageHeading from "@/components/PageHeading";
+import { useAccount } from "@/lib/account";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 
 export default function Account() {
+  const { consumptionCredits, investmentCredits } = useAccount();
   // Example user data (replace with real data as needed)
   const user = {
     name: "Alice Example",
     email: "alice@example.com",
-    investmentCredits: 2400,
-    consumptionCredits: 1234,
+    investmentCredits,
+    consumptionCredits,
     joined: "2024-03-15",
   };
 

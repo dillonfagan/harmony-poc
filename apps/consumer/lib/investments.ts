@@ -1,3 +1,5 @@
+import { useBase } from "./storage";
+
 export type ProjectData = {
   id: string;
   name: string;
@@ -68,12 +70,12 @@ const investments: ProjectData[] = [
     name: "Community Health Clinic",
     category: "Health & Wellness",
     summary: "A community health clinic to provide accessible healthcare services to underserved populations.",
-    fundingGoal: 15000,
-    currentFunding: 9500,
+    fundingGoal: 25_000,
+    currentFunding: 22_000,
     deadline: "2025-11-30",
     fundingType: "loan",
     interestRate: 0,
-    term: 36
+    term: 120
   },
   {
     id: "5",
@@ -104,10 +106,10 @@ export const calculateLoanInterest = (amount: number, interestRate: InterestRate
   return amount * interestRate * (term / 12);
 };
 
-export const getInvestments = () => {
-  return investments;
+export const useInvestments = () => {
+  return useBase<ProjectData>({ key: "investments", defaultValue: { items: investments } });
 };
 
-export const getInvestment = (id: string) => {
-  return investments.find(investment => investment.id === id);
+export const useInvestment = (id: string) => {
+  return useInvestments().items.find(investment => investment.id === id);
 };

@@ -1,10 +1,9 @@
 "use client";
-
 import { showModal } from "@/lib/modal";
 import classNames from "classnames";
 import InvestmentCreditsCard from "../InvestmentCreditsCard";
 import { useState } from "react";
-import { getInvestmentCredits, setInvestmentCredits } from "@/lib/account";
+import { useAccount } from "@/lib/account";
 
 type Props = {
   currentFunding: number;
@@ -68,28 +67,23 @@ export default function FundingStats({
 }
 
 type InvestFormData = {
-  amount: number | undefined;
+  amount: number;
 };
 
 function InvestModal({ onInvest }: { onInvest?: (credits: number) => void }) {
-  const creditBalance = getInvestmentCredits();
+  const { investmentCredits, update } = useAccount();
   const [form, setForm] = useState<InvestFormData>({
-    amount: creditBalance > 100 ? 100 : creditBalance,
+    amount: investmentCredits > 100 ? 100 : investmentCredits,
   });
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    const data = { ...form, [e.target.name]: Number(e.target.value) };
-    if (data.amount === 0) {
-      data.amount = undefined;
-    }
-
-    setForm(data);
+    setForm({ ...form, [e.target.name]: Number(e.target.value) });
   };
 
   const onSubmit = () => {
-    setInvestmentCredits(creditBalance - (form.amount ?? 0));
+    update({ investmentCredits: investmentCredits - (form.amount ?? 0) });
     onInvest?.(form.amount ?? 0);
   };
 
@@ -109,7 +103,7 @@ function InvestModal({ onInvest }: { onInvest?: (credits: number) => void }) {
               value={form.amount}
               onChange={handleChange}
               min={1}
-              max={creditBalance}
+              max={investmentCredits}
               step={1}
             />
             <p className="label">

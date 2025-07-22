@@ -52,9 +52,10 @@ export default async function Project({ params }: Props) {
               <div className="card-body">
                 <h2 className="text-xl font-semibold">Loan Details</h2>
                 {interestIncome > 0 && <p className="font-semibold">This loan will generate ${interestIncome.toLocaleString()} in interest income.</p>}
-                <p>Type: {fundingType.toUpperCase()}</p>
-                <p>Interest Rate: {interestRate ? `${(interestRate * 100).toFixed(2)}%` : "N/A"}</p>
-                <p>Term: {term ? `${term} months` : "N/A"}</p>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  <span className="badge badge-lg badge-neutral">{`${((interestRate ?? 0) * 100).toFixed(2)}%`} Interest</span>
+                  <span className="badge badge-lg badge-neutral">{term ? `${term} months` : "N/A"}</span>
+                </div>
               </div>
             </div>
           )}

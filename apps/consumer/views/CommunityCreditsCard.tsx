@@ -12,7 +12,7 @@ export default function CommunityCreditsCard() {
             <InformationCircleIcon className="size-6" />
           </div>
         </div>
-        <p className="text-2xl md:text-3xl font-bold">{(credits*100).toLocaleString()}</p>
+        <p className="text-2xl md:text-3xl font-bold">${(credits*100).toLocaleString()}</p>
       </div>
     </div>
   );

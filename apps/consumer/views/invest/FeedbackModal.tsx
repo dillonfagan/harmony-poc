@@ -1,7 +1,5 @@
 "use client";
-import { useAccount } from "@/lib/account";
 import { useState } from "react";
-import InvestmentCreditsCard from "../InvestmentCreditsCard";
 
 type FeedbackFormData = {
   message: string;
@@ -17,7 +15,7 @@ export default function FeedbackModal({ onSubmit }: { onSubmit?: () => void }) {
   const handleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
-    setForm({ ...form, [e.target.name]: Number(e.target.value) });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   return (
